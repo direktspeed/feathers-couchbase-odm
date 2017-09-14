@@ -1,14 +1,14 @@
 {
   "name": "feathers-couchbase-odm",
   "description": "Feathers Couchbase ODM Service",
-  "version": "2.7.4",
-  "homepage": "https://github.com/direktspeed/feathers-couchbase",
+  "version": "2.7.0",
+  "homepage": "https://github.com/direktspeed/feathers-couchbase-odm",
   "repository": {
     "type": "git",
-    "url": "https://github.com/direktspeed/feathers-couchbase.git"
+    "url": "https://github.com/direktspeed/feathers-couchbase-odm.git"
   },
   "bugs": {
-    "url": "https://github.com/direktspeed/feathers-couchbase/issues"
+    "url": "https://github.com/direktspeed/feathers-couchbase-odm/issues"
   },
   "license": "Apache-2.0",
   "keywords": [
@@ -53,7 +53,7 @@
   },
   "dependencies": {
     "feathers-commons": "^0.8.1",
-    "feathers-couchbase": "file:../feathers-couchbase",
+    "feathers-couchbase": ">2.7.0",
     "feathers-errors": "^2.0.1",
     "feathers-query-filters": "^2.0.0",
     "lodash.omit": "^4.3.0",
