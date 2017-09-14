@@ -1,7 +1,7 @@
 {
   "name": "feathers-couchbase-odm",
   "description": "Feathers Couchbase ODM Service",
-  "version": "2.7.1",
+  "version": "2.7.2",
   "homepage": "https://github.com/direktspeed/feathers-couchbase-odm",
   "repository": {
     "type": "git",
