@@ -4,7 +4,7 @@ const Proto = require('uberproto');
 const filter = require('feathers-query-filters');
 const errors = require('feathers-errors');
 const { sorter, matcher, select, _ } = require('feathers-commons');
-const CouchbaseService  = require('../../feathers-couchbase').Service;
+const CouchbaseService  = require('feathers-couchbase').Service;
 
 //TODO: Add cas support
 class CouchbaseOdmService extends CouchbaseService {
@@ -21,23 +21,24 @@ class CouchbaseOdmService extends CouchbaseService {
   setup(app,path){
     this.app = app;
     this.path = path;
+    super.setup(app,path);
   }
   find(params) {
-    debug('peep-api::services::couchbase-odm::find::info')(params);
+    debug('feathers-couchbase-odm::find::info')(params);
     if (!this.keySpace) {
       return Promise.reject('no keySpace for this service?');
     }
 
     params.query._type = this.keySpace;
-    debug('peep-api::services::couchbase-odm::find::info')(params);
+    debug('feathers-couchbase-odm::find::info')(params);
     return this._find(params).then((data)=>{
       data.filter((itm)=>{
         if (itm.cbKey) {
           if (itm.cbKey === itm._type+'|'+itm._id) {
-            debug('peep-api::services::couchbase-odm::find::info::NotFiltered')(itm);
+            debug('feathers-couchbase-odm::find::info::NotFiltered')(itm);
             return itm;
           } else {
-            debug('peep-api::services::couchbase-odm::find::warning::filtered')(itm);
+            debug('feathers-couchbase-odm::find::warning::filtered')(itm);
           }
         }
       });
@@ -46,22 +47,22 @@ class CouchbaseOdmService extends CouchbaseService {
   }
   get(id, params) {
     if (Array.isArray(id)){
-      debug('peep-api::services::couchbase::get::multi')(id,params);
+      debug('feathers-couchbase-odm::get::multi')(id,params);
     } else {
-      debug('peep-api::services::couchbase::get::single')(id,params);
+      debug('feathers-couchbase-odm::get::single')(id,params);
     }
 
-    return this._get(this.keySpace+'|'+id);
+    return super.get(this.keySpace+'|'+id);
     //.then((res)=>res[0]);
     //return this._query({ _id: id, _type: this.keySpace}).then((res)=>res[0]);
 
   }
   create(data, params) {
     if (data._id) {
-      debug('peep-api::services::couchbase-odm::create::warning')('DEPRECATED: Called with id set %s',data._id);
+      debug('feathers-couchbase-odm::create::warning')('DEPRECATED: Called with id set %s',data._id);
     }
     if (data._type) {
-      debug('peep-api::services::couchbase-odm::create::warning')('DEPRECATED: Called with type set %s',data._type);
+      debug('feathers-couchbase-odm::create::warning')('DEPRECATED: Called with type set %s',data._type);
     }
 
     return this._create(this._createKey(data),params);
@@ -74,21 +75,21 @@ class CouchbaseOdmService extends CouchbaseService {
   }
   //update is single patch is mult
   update(id, data) {
-    debug('peep-api::services::couchbase-odm::update')(id,this._getKey(id),data);
-    return this._super.update(this._getKey(id),data);
+    debug('feathers-couchbase-odm::update')(id,this._getKey(id),data);
+    return super.update(this._getKey(id),data);
   }
   patch(id, data, params) {
     return this._patch(this._getKey(id),params);
   }
   remove(id, params) {
-    debug('peep-api::services::couchbase-odm::remove')(id,this._getKey(id),params);
+    debug('feathers-couchbase-odm::remove')(id,this._getKey(id),params);
     return this._remove(this._getKey(id),params)
       .catch((e)=>{
         if (e.code === 13) {
-          debug('peep-api::services::couchbase-odm::remove::Warning::KeyNotFoundTryId')(id,this._getKey(id),params);
+          debug('feathers-couchbase-odm::remove::Warning::KeyNotFoundTryId')(id,this._getKey(id),params);
           return this._remove(id,params);
         }
-        debug('peep-api::services::couchbase-odm::remove::error')(e);
+        debug('feathers-couchbase-odm::remove::error')(e);
       });
   }
   _queryOdm(filter) {
@@ -99,13 +100,13 @@ class CouchbaseOdmService extends CouchbaseService {
     var FILTER_ARRAY = [' WHERE META(val).id LIKE "'+this.keySpace+'%"'];
     Object.keys(filter).map((key)=>FILTER_ARRAY.push('val.'+key+' LIKE "' + filter[key] +'"'));
     var QUERY = 'SELECT *, META(val).id FROM default val' + FILTER_ARRAY.join(' AND ');
-    debug('peep-api::services::couchbase-odm:_queryOdm')(QUERY);
+    debug('feathers-couchbase-odm:_queryOdm')(QUERY);
     return 'DEPERECATED';
     //return db.runQuery(QUERY).then((res)=>res.map((itm)=>itm.val));
   }
   _getKey(id){
     var keySpaceId = this.keySpace+'|'+id;
-    debug('peep-api::services::couchbase-odm:_getKey')(keySpaceId);
+    debug('feathers-couchbase-odm:_getKey')(keySpaceId);
     return keySpaceId;
   }
   _createKey(data,params) {
@@ -117,7 +118,7 @@ class CouchbaseOdmService extends CouchbaseService {
       data._type = this.keySpace;
     }
     var cbKey = data._type+'|'+data._id;
-    debug('peep-api::services::couchbase-odm:_createKey')(cbKey,params);
+    debug('feathers-couchbase-odm:_createKey')(cbKey,params);
     data.cbKey = cbKey;
     return data;
   }
