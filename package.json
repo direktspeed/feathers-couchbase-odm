@@ -1,7 +1,7 @@
 {
   "name": "feathers-couchbase-odm",
   "description": "Feathers Couchbase ODM Service",
-  "version": "2.7.6",
+  "version": "2.7.7",
   "homepage": "https://github.com/direktspeed/feathers-couchbase-odm",
   "repository": {
     "type": "git",
@@ -53,7 +53,7 @@
   },
   "dependencies": {
     "feathers-commons": "^0.8.1",
-    "feathers-couchbase": ">2.7.6",
+    "feathers-couchbase": ">=2.7.6",
     "feathers-errors": "^2.0.1",
     "feathers-query-filters": "^2.0.0",
     "lodash.omit": "^4.3.0",
