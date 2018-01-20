@@ -1,7 +1,7 @@
 {
   "name": "feathers-couchbase-odm",
   "description": "Feathers Couchbase ODM Service",
-  "version": "2.7.7",
+  "version": "2.7.8",
   "homepage": "https://github.com/direktspeed/feathers-couchbase-odm",
   "repository": {
     "type": "git",
@@ -52,10 +52,8 @@
     "node": ">= 4"
   },
   "dependencies": {
-    "feathers-commons": "^0.8.1",
-    "feathers-couchbase": ">=2.7.6",
-    "feathers-errors": "^2.0.1",
-    "feathers-query-filters": "^2.0.0",
+    "@feathersjs/errors": "^3.2.0",
+    "feathers-couchbase": "^2.7.6",
     "lodash.omit": "^4.3.0",
     "uberproto": "^1.2.0"
   },
@@ -67,10 +65,10 @@
     "body-parser": "1.18.2",
     "chai": "4.1.2",
     "eslint-if-supported": "1.0.1",
-    "feathers": "2.2.4",
-    "feathers-rest": "1.8.0",
+    "@feathersjs/express": "^1.1.2",
+    "@feathersjs/feathers": "^3.0.1",
     "feathers-service-tests": "0.10.2",
-    "feathers-socketio": "2.0.0",
+    "@feathersjs/socketio": "^3.0.0",
     "istanbul": "1.1.0-alpha.1",
     "mocha": "4.0.1",
     "rimraf": "2.6.2",
