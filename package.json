@@ -58,7 +58,7 @@
     "uberproto": "^1.2.0"
   },
   "devDependencies": {
-    "@feathersjs/express": "^1.1.2",
+    "@feathersjs/express": "1.2.3",
     "@feathersjs/feathers": "^3.0.1",
     "@feathersjs/socketio": "^3.0.0",
     "babel-cli": "6.26.0",
